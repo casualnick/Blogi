@@ -4,7 +4,8 @@ RSpec.describe 'User', type: :model do
     let(:user) { create(:user) }
 
     it { should validate_presence_of :email }
-    it { should validate_presence_of :password_digest }
+    it { should validate_presence_of :password }
+    it { should validate_presence_of :password_confirmation }
     it { should validate_length_of :password }
 
     describe '#email' do
