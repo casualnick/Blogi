@@ -11,7 +11,7 @@ RSpec.describe "Users", type: :request do
 
         context 'when user is not an admin' do
             before do
-                allow(:controller).to receive(:current_user).and_return(user)
+                allow(controller).to receive(:current_user).and_return(user)
                 get "/users"
             end
             
@@ -20,14 +20,14 @@ RSpec.describe "Users", type: :request do
             end
 
             it 'return failure message' do
-                expect(response.body).to match(/Have to be admin to access that action/)
+                expect(response.body).to include("You have to be admin to access that action")
             end
 
         end
 
         context 'when user is an admin' do
             before do
-            allow(:controller).to receive(:current_user).and_return(admin)
+            allow(controller).to receive(:current_user).and_return(admin)
             get "/users"
             end
 
@@ -49,7 +49,7 @@ RSpec.describe "Users", type: :request do
             before { post "/users", params: valid_params }
 
             it 'create user successfully' do
-                expect(response.body).to include(user.email)
+                expect(response.body).to include("valid@email.com")
             end
 
             it 'have http status 201' do
@@ -74,7 +74,7 @@ RSpec.describe "Users", type: :request do
         let(:valid_params) { { email: 'another@email.com'} }
 
         context 'params are valid' do
-            before { put "/users#{user_id}", params: valid_params }
+            before { put "/users/#{user_id}", params: valid_params }
 
             it 'update user properly' do
                 updated_user = User.find(user_id)
@@ -87,7 +87,7 @@ RSpec.describe "Users", type: :request do
         end
 
         context 'params are invalid' do
-            before { put "/users#{user_id}", params: { } }
+            before { put "/users/#{user_id}", params: { } }
 
             it 'return failure message' do
                 expect(response.body).to include("Email can't be blank")
@@ -96,7 +96,7 @@ RSpec.describe "Users", type: :request do
     end
 
     describe "DELETE /users/:user_id" do
-        before { delete "/users#{user_id}" }
+        before { delete "/users/#{user_id}" }
 
         it 'have http status 204' do
             expect(response).to have_http_status(204)
