@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    enum role: [:standart, :admin, :guest]
+    enum role: [:standard, :guest, :admin]
 
     after_initialize do
         if self.new_record?
@@ -9,15 +9,15 @@ class User < ApplicationRecord
 
     has_secure_password
 
-    EMAIL_FORMAT = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/
+    EMAIL_FORMAT =  /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-    validate :email,
+    validates :email,
         presence: :true,
-        lenght: { minimum: 5 },
+        length: { minimum: 5 },
         uniqueness: true,
         format: { with: EMAIL_FORMAT }
 
-    validate :password, presence: true, lenght: { minimum: 5 }
+    validates :password, presence: true, length: { minimum: 5 }
 
-    validate :password_confirmation, presence: true
+    validates :password_confirmation, presence: true
 end

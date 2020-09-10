@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User', type: :model do
+RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     it { should validate_presence_of :email }
@@ -20,7 +20,7 @@ RSpec.describe 'User', type: :model do
     describe 'roles' do
         
         it 'set default standart role' do
-            expect(user.role).to eq("standart")
+            expect(user.role).to eq("standard")
         end
 
         it 'change to admin role properly' do
