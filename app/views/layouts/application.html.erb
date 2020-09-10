@@ -9,6 +9,29 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+    <% flash.each do |type, msg| %>
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      <%= msg %>
+    </div>
+    <% end %><br>
+
+    <% if current_user.nil? %>
+      <%= link_to 'Sign up', new_user_path %>
+      <%# | <%= link_to 'Home', index_posts_path %>
+    <% elsif current_user.role == :admin %>
+      <%= link_to 'Log out', logout_path, method: :delete %>
+       | <%= link_to 'User managament panel', index_users_path %>
+       | <%= link_to 'Profile', user_path(session[:user_id]) %>
+      <%# |  <%= link_to 'Home', index_posts_path %>
+    <% else %>
+      <%= link_to 'Log out', logout_path, method: :delete %>
+       | <%= link_to 'Profile', user_path(session[:user_id]) %>
+    <% end %>
+
+
+
+<hr>
   <body>
     <%= yield %>
   </body>

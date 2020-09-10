@@ -1,0 +1,12 @@
+<strong>Users: </strong>
+
+    <%= @users.each do |user| %>
+
+    <p>
+    Email: <%= user.email %><br>
+    Role: <%= user.role %><br>
+    <% unless user.name.blank?%>
+    Name: <%= user.name %>
+    <% end %>
+    <% end %>
+    </p>

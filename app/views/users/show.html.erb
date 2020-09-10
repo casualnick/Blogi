@@ -1,0 +1,13 @@
+<% if @user.name.blank? %>
+    <strong>Hello stranger</strong>
+<% else %>
+    <strong>Hello <%= @user.name %> </strong>
+<% end %>
+
+<p>
+    Your Email: <%= @user.email%><br>
+    Your Role: <%= @user.role %><br>
+    You are with us since: <%= @user.created_at %>
+</p>
+
+    <button type="button">Update your profile!</button>
