@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Blogi</title>
+    <meta name='viewport', content='width=device-width', initial-scale=1>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -16,23 +17,39 @@
     </div>
     <% end %><br>
 
-    <% if current_user.nil? %>
-      <%= link_to 'Sign up', new_user_path %>
-      <%# | <%= link_to 'Home', index_posts_path %>
-    <% elsif current_user.role == :admin %>
-      <%= link_to 'Log out', logout_path, method: :delete %>
-       | <%= link_to 'User managament panel', index_users_path %>
-       | <%= link_to 'Profile', user_path(session[:user_id]) %>
-      <%# |  <%= link_to 'Home', index_posts_path %>
-    <% else %>
-      <%= link_to 'Log out', logout_path, method: :delete %>
-       | <%= link_to 'Profile', user_path(session[:user_id]) %>
-    <% end %>
+  <div class="headerinfo">
+      <ul style="display: inline;">
+        <% if current_user.nil? %>
+          <li> <%= link_to 'Sign up', new_user_path %></li>
+          <li> <%= link_to 'Home', home_path %></li>
+          <li> <%= link_to 'Log in', login_path %></li>
+        <% elsif current_user.admin? %>
+          <li><%= link_to 'Log out', logout_path, method: :delete %></li>
+          <li> <%= link_to 'User managament panel', users_path %></li>
+          <li> <%= link_to 'Profile', user_path(session[:user_id]) %></li>
+          <li>  <%= link_to 'Home', home_path %></li>
+          <li> <%= link_to 'New Post', new_user_post_path(current_user) %></li>
+        <% else %>
+          <li><%= link_to 'Log out', logout_path, method: :delete %></li>
+          <li> <%= link_to 'Profile', user_path(session[:user_id]) %></li>
+          <li> <%= link_to 'Home', home_path %></li>
+          <li> <%= link_to 'New Post', new_user_post_path(current_user) %> </li>
+        <% end %>
+         
+      </ul>
+  </div>
+
+  <%= link_to image_tag('blogi_logo.png', class: 'logo'), home_path %>
 
 
 
 <hr>
   <body>
+
+    <div id="greyscreen">Blog
+    <%= link_to 'Home Page', home_path, class: 'path' %> 
+    </div>
+
     <%= yield %>
   </body>
 </html>

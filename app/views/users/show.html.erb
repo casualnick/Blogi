@@ -10,4 +10,29 @@
     You are with us since: <%= @user.created_at %>
 </p>
 
-    <button type="button">Update your profile!</button>
+    <% if current_user && current_user.id == @user.id %>
+        <button type="button"><%= link_to 'Update your profile', edit_user_path(@user) %></button> | 
+        <button type="button"><%= link_to 'Delete your profile', user_path(@user), method: :delete,
+         data: { confirm: 'Are you sure?' } %></button><br>
+
+<strong>Your posts: </strong>
+
+    <p>
+    
+    <% @user.posts.each do |post| %>
+        Title: <%= post.title %><br>
+        Content <%= post.content %>
+    <% end %>
+    </p>
+
+    <% else %>
+
+    <strong><%= @user.name.blank? ? @user.email : @user.name %> posts: </strong>
+
+        <% @user.posts.each do |post| %>
+            Title: <%= post.title %><br>
+            Content <%= post.content %>
+        <% end %>
+
+    <%end%>
+

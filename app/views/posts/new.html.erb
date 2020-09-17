@@ -1,0 +1,16 @@
+<strong> New Post: <strong>
+
+    <%= form_with( model: [ @user, @user.posts.build], local: true ) do |f| %>
+
+        <p>
+            <%= f.label :title %><br>
+            <%= f.text_field :title %>
+        </p>
+
+        <p>
+            <%= f.label :content %><br>
+            <%= f.text_area :content %>
+        </p>
+
+        <%= f.submit 'Create post'%>
+    <% end %>

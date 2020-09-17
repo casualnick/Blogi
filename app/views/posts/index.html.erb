@@ -1,0 +1,15 @@
+<%= stylesheet_link_tag 'posts' %>
+
+<br><strong>All posts: </strong>
+
+
+    <% @posts.each do |post| %>
+
+    <p>
+        TITLE: <%= post.title %><br>
+
+        CONTENT: <%= post.content %><br>
+        CREATED_BY: <%= @user.email  %>
+    </p>    
+    
+    <% end %>

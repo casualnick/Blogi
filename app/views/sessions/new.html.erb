@@ -1,6 +1,6 @@
 <strong>Logging panel</strong>
 
-    <% form_with model: @user do |f| %>
+    <%= form_with(model: @session, url: login_path, local: true) do |f| %>
 
         <p>
             <%= f.label :email %><br>
@@ -8,7 +8,7 @@
         </p>
 
         <p>
-            <%= f.label :password %>
+            <%= f.label :password %><br>
             <%= f.password_field :password %>
         </p>
     
