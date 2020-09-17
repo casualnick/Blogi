@@ -5,8 +5,16 @@
     <p>
     Email: <%= user.email %><br>
     Role: <%= user.role %><br>
+    ID: <%= user.id %><br>
     <% unless user.name.blank?%>
-    Name: <%= user.name %>
+        Name: <%= user.name %>
     <% end %>
+
+    <% if user.standard?%>
+        <%= link_to 'Destroy User', user_path(user), method: :delete,
+         data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'User profile', user_path(user) %>
     <% end %>
+
+    <% end %><br>
     </p>
