@@ -15,11 +15,16 @@ class ApplicationController < ActionController::Base
 
     def authenticate_admin
         unless @current_user.nil?
-            if @current_user.role == :admin
-                redirect_to new_user_path
-                @current_user.errors.add(:role, message: 'You have to be admin to access this action' )
+            unless @current_user.role == :admin
+                redirect_to @user_path, alert: 'you have to be admin to access this action'
             end
+        else
+            authenticate_login
         end
+    end
+
+    def authenticate_login
+        redirect_to login_path, alert: 'You have to be logged to access this action' if current_user.nil?
     end
 
 end

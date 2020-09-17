@@ -4,8 +4,6 @@ class UsersController < ApplicationController
 
     def index
         @users = User.all
-        json_response(@users)
-
     end
 
     def show
@@ -30,9 +28,10 @@ class UsersController < ApplicationController
     end
 
     def destroy
-        @user.destroy
-
-        json_response(@user, :no_content)
+        session[:user_id] = nil if @user.id == current_user.id
+        @user.destroy!
+        redirect_to home_path
+        
     end
 
     private
